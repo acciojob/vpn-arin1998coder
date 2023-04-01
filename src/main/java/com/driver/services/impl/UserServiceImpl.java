@@ -52,8 +52,7 @@ public class UserServiceImpl implements UserService {
 
         country.setUser(user);
         user.setOriginalCountry(country);
-
-        countryRepository3.save(country);
+        userRepository3.save(user);
         //set the user originalip
         user.setOriginalIp(countryEnumName.toCode()+"."+user.getId());
         userRepository3.save(user);

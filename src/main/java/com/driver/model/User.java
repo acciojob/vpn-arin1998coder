@@ -26,8 +26,7 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Connection> connectionList = new ArrayList<>();
 
-    @OneToOne
-    @JoinColumn
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     private Country originalCountry;
 
     @ManyToMany

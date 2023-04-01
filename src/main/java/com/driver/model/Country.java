@@ -16,7 +16,8 @@ public class Country{
     //todo
     //mappings
 
-    @OneToOne(mappedBy = "originalCountry",cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn
     private User user;
 
     @ManyToOne
