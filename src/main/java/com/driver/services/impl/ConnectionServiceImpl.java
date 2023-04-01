@@ -38,7 +38,7 @@ public class ConnectionServiceImpl implements ConnectionService {
             throw new Exception("Already connected");
         }
         //if same country
-        if(user.getCountry().getCountryName().name().equalsIgnoreCase(countryName)){
+        if(user.getOriginalCountry().getCountryName().name().equalsIgnoreCase(countryName)){
             return user;
         }
 
@@ -79,7 +79,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         //maskedIp is "updatedCountryCode.serviceProviderId.userId"
 
         String countryCode = c.getCode();
-        user.setMaskedIP(countryCode+"."+provider.getId()+"."+userId);
+        user.setMaskedIp(countryCode+"."+provider.getId()+"."+userId);
 
         userRepository2.save(user);
 //        serviceProviderRepository2.save(provider);
@@ -96,7 +96,7 @@ public class ConnectionServiceImpl implements ConnectionService {
             throw new Exception("Already disconnected");
         }
         user.setConnected(false);
-        user.setMaskedIP(null);
+        user.setMaskedIp(null);
 
         userRepository2.save(user);
 
@@ -118,7 +118,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         String currenctCountryOfReceiver="";
         //maskedIp is "updatedCountryCode.serviceProviderId.userId"
         if(receiver.getConnected()==true){
-            String code = receiver.getMaskedIP().substring(0,3);
+            String code = receiver.getMaskedIp().substring(0,3);
             for (CountryName countryName1 : CountryName.values()) {
                 if (countryName1.toCode().equals(code)) {
                     currenctCountryOfReceiver= countryName1.name();
@@ -126,10 +126,10 @@ public class ConnectionServiceImpl implements ConnectionService {
             }
         }
         else{
-            currenctCountryOfReceiver = receiver.getCountry().getCountryName().name(); //original country
+            currenctCountryOfReceiver = receiver.getOriginalCountry().getCountryName().name(); //original country
         }
 
-        if(sender.getCountry().getCountryName().name().equals(currenctCountryOfReceiver)) return sender;
+        if(sender.getOriginalCountry().getCountryName().name().equals(currenctCountryOfReceiver)) return sender;
 
         try {
             sender = connect(senderId,currenctCountryOfReceiver);
