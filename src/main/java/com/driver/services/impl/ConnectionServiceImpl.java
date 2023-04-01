@@ -82,7 +82,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         user.setMaskedIp(countryCode+"."+provider.getId()+"."+userId);
 
         userRepository2.save(user);
-//        serviceProviderRepository2.save(provider);
+       serviceProviderRepository2.save(provider);
 
         return user;
 
